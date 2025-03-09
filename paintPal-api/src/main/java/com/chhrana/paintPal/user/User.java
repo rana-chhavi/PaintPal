@@ -1,5 +1,7 @@
 package com.chhrana.paintPal.user;
 
+import com.chhrana.paintPal.history.PaintingTransactionHistory;
+import com.chhrana.paintPal.painting.Painting;
 import com.chhrana.paintPal.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -44,6 +46,12 @@ public class User implements UserDetails, Principal {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Painting> paintings;
+
+    @OneToMany(mappedBy = "user")
+    private List<PaintingTransactionHistory> paintingTransactionHistories;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

@@ -37,7 +37,7 @@ public class Painting extends BaseEntity {
 
     private String info;    // synopsis
 
-    private String genre;   //bookCover
+    private String genre;
 
     private boolean archived;
 
@@ -52,5 +52,20 @@ public class Painting extends BaseEntity {
 
     @OneToMany(mappedBy = "painting")
     private List<PaintingTransactionHistory> histories;
+
+    @Transient
+    public double getRating() {
+        if (comments == null || comments.isEmpty()) {
+            return 0.0;
+        }
+
+        var rate = this.comments.stream()
+                .mapToDouble(Comment::getNote)
+                .average()
+                .orElse(0.0);
+
+        double roundedRate = Math.round(rate * 10.0) / 10.0;
+        return roundedRate;
+    }
 
 }

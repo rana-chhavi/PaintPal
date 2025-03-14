@@ -29,7 +29,7 @@ public class Comment extends BaseEntity {
     private String comment;
 
     @ManyToOne
-    @JoinColumn(name = "book_id")
+    @JoinColumn(name = "painting_id")
     private Painting painting;
 
 }

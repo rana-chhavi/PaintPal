@@ -48,7 +48,7 @@ public class PaintingController {
         return ResponseEntity.ok(paintingService.findAllPaintingsByOwner(page, size, connectedUser));
     }
 
-    @GetMapping("/borrowed-paintings")
+    @GetMapping("/borrowed")
     public ResponseEntity<PageResponse<BorrowedPaintingResponse>> findAllBorrowedPaintings(
             @RequestParam(name="page", defaultValue = "0", required = false) int page,
             @RequestParam(name="size", defaultValue = "10", required = false) int size,
@@ -56,6 +56,55 @@ public class PaintingController {
     ) {
 
         return ResponseEntity.ok(paintingService.findAllBorrowedPaintings(page, size, connectedUser));
+    }
+
+    @GetMapping("/returned")
+    public ResponseEntity<PageResponse<BorrowedPaintingResponse>> findAllReturnedPaintings(
+            @RequestParam(name="page", defaultValue = "0", required = false) int page,
+            @RequestParam(name="size", defaultValue = "10", required = false) int size,
+            Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(paintingService.findAllReturnedPaintings(page, size, connectedUser));
+    }
+
+    @PatchMapping("/shareable/{id}")
+    public ResponseEntity<Integer> updateShareableStatus(
+            @PathVariable("id") Integer paintingId,
+            Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(paintingService.updateShareableStatus(paintingId, connectedUser));
+    }
+
+    @PatchMapping("/archived/{id}")
+    public ResponseEntity<Integer> updateArchivedStatus(
+            @PathVariable("id") Integer paintingId,
+            Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(paintingService.updateArchivedStatus(paintingId, connectedUser));
+    }
+
+    @PostMapping("/borrow/{id}")
+    public ResponseEntity<Integer> borrowPainting(
+            @PathVariable("id") Integer paintingId,
+            Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(paintingService.borrowPainting(paintingId, connectedUser));
+    }
+
+    @PatchMapping("/borrow/return/{id}")
+    public ResponseEntity<Integer> returnBorrowPainting(
+            @PathVariable("id") Integer paintingId,
+            Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(paintingService.returnBorrowedPainting(paintingId, connectedUser));
+    }
+
+    @PatchMapping("/borrow/return/approve/{id}")
+    public ResponseEntity<Integer> approveReturnBorrowedPainting(
+            @PathVariable("id") Integer paintingId,
+            Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(paintingService.approveReturnBorrowedPainting(paintingId, connectedUser));
     }
 
 }

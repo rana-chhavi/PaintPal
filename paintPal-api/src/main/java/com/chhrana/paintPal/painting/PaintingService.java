@@ -2,6 +2,7 @@ package com.chhrana.paintPal.painting;
 
 import com.chhrana.paintPal.common.PageResponse;
 import com.chhrana.paintPal.exception.OperationNotPermittedException;
+import com.chhrana.paintPal.file.FileStorageService;
 import com.chhrana.paintPal.history.PaintingTransactionHistory;
 import com.chhrana.paintPal.history.PaintingTransactionHistoryRepository;
 import com.chhrana.paintPal.user.User;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,6 +27,7 @@ public class PaintingService {
     private final PaintingRepository paintingRepository;
     private final PaintingTransactionHistoryRepository paintingTransactionHistoryRepository;
     private final PaintingMapper paintingMapper;
+    private final FileStorageService fileStorageService;
     public Integer save(PaintingRequest request, Authentication connectedUser) {
         User user = ((User) connectedUser.getPrincipal());
         Painting painting = paintingMapper.toPainting(request);
@@ -201,5 +204,15 @@ public class PaintingService {
         paintingTransactionHistory.setReturnApproved(true);
         return paintingTransactionHistoryRepository.save(paintingTransactionHistory).getId();
 
+    }
+
+    public void uploadPaintingImage(MultipartFile file, Authentication connectedUser, Integer paintingId) {
+        Painting painting = paintingRepository.findById(paintingId)
+                .orElseThrow(() -> new EntityNotFoundException("No painting found with ID:: " + paintingId));
+
+        User user = ((User) connectedUser.getPrincipal());
+        var image = fileStorageService.saveFile(file, painting, user.getId());
+        painting.setImage(image);
+        paintingRepository.save(painting);
     }
 }

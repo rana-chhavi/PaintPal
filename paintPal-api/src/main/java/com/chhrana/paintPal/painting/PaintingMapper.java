@@ -1,5 +1,6 @@
 package com.chhrana.paintPal.painting;
 
+import com.chhrana.paintPal.file.FileUtils;
 import com.chhrana.paintPal.history.PaintingTransactionHistory;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,7 @@ public class PaintingMapper {
                 .archived(painting.isArchived())
                 .shareable(painting.isShareable())
                 .owner(painting.getOwner().fullName())
+                .image(FileUtils.readFileFromLocation(painting.getImage()))
                 .build();
     }
 

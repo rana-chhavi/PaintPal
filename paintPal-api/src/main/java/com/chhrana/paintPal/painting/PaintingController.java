@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("painting")
@@ -105,6 +106,16 @@ public class PaintingController {
             Authentication connectedUser
     ) {
         return ResponseEntity.ok(paintingService.approveReturnBorrowedPainting(paintingId, connectedUser));
+    }
+
+    @PostMapping(value="/image/{id}", consumes = "multipart/form-data")
+    public ResponseEntity<?> uploadPaintingImage(
+            @PathVariable("id") Integer id,
+            @RequestParam("file")MultipartFile file,
+            Authentication connectedUser
+            ) {
+        paintingService.uploadPaintingImage(file, connectedUser, id);
+        return ResponseEntity.accepted().build();
     }
 
 }

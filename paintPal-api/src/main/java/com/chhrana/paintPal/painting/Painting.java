@@ -1,23 +1,16 @@
 package com.chhrana.paintPal.painting;
 
-import com.chhrana.paintPal.comment.Comment;
+import com.chhrana.paintPal.review.Review;
 import com.chhrana.paintPal.common.BaseEntity;
 import com.chhrana.paintPal.history.PaintingTransactionHistory;
 import com.chhrana.paintPal.user.User;
-import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -37,7 +30,7 @@ public class Painting extends BaseEntity {
 
     private String info;    // synopsis
 
-    private String genre;
+    private String image;
 
     private boolean archived;
 
@@ -48,19 +41,19 @@ public class Painting extends BaseEntity {
     private User owner;
 
     @OneToMany(mappedBy = "painting")
-    private List<Comment> comments;
+    private List<Review> reviews;
 
     @OneToMany(mappedBy = "painting")
     private List<PaintingTransactionHistory> histories;
 
     @Transient
     public double getRating() {
-        if (comments == null || comments.isEmpty()) {
+        if (reviews == null || reviews.isEmpty()) {
             return 0.0;
         }
 
-        var rate = this.comments.stream()
-                .mapToDouble(Comment::getNote)
+        var rate = this.reviews.stream()
+                .mapToDouble(Review::getNote)
                 .average()
                 .orElse(0.0);
 

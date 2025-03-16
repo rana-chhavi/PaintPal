@@ -1,0 +1,621 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OpenAPI specification - PaintPal",
+    "description": "OpenAPI documentation for spring security",
+    "termsOfService": "Terms of Service",
+    "contact": { "name": "Chhavi Rana", "email": "chhavirana83@gmail.com" },
+    "license": { "name": "MIT licencse" },
+    "version": "1.0"
+  },
+  "servers": [
+    { "url": "http://localhost:8088/api/v1", "description": "Local ENV" },
+    { "url": "https://paintpal-equ8or.com", "description": "PROD ENV" }
+  ],
+  "security": [{ "bearerAuth": [] }],
+  "paths": {
+    "/reviews": {
+      "post": {
+        "tags": ["Review"],
+        "operationId": "saveReview",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ReviewRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "type": "integer", "format": "int32" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/painting": {
+      "get": {
+        "tags": ["Painting"],
+        "operationId": "findAllPaintings",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "format": "int32", "default": 0 }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "format": "int32", "default": 10 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponsePaintingResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Painting"],
+        "operationId": "savePainting",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PaintingRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "type": "integer", "format": "int32" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/painting/image/{id}": {
+      "post": {
+        "tags": ["Painting"],
+        "operationId": "uploadPaintingImage",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": { "type": "string", "format": "binary" }
+                },
+                "required": ["file"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        }
+      }
+    },
+    "/painting/borrow/{id}": {
+      "post": {
+        "tags": ["Painting"],
+        "operationId": "borrowPainting",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "type": "integer", "format": "int32" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": ["Authentication"],
+        "operationId": "register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RegistrationRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        }
+      }
+    },
+    "/auth/authenciate": {
+      "post": {
+        "tags": ["Authentication"],
+        "operationId": "authenciate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AuthenticationRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/painting/shareable/{id}": {
+      "patch": {
+        "tags": ["Painting"],
+        "operationId": "updateShareableStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "type": "integer", "format": "int32" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/painting/borrow/return/{id}": {
+      "patch": {
+        "tags": ["Painting"],
+        "operationId": "returnBorrowPainting",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "type": "integer", "format": "int32" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/painting/borrow/return/approve/{id}": {
+      "patch": {
+        "tags": ["Painting"],
+        "operationId": "approveReturnBorrowedPainting",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "type": "integer", "format": "int32" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/painting/archived/{id}": {
+      "patch": {
+        "tags": ["Painting"],
+        "operationId": "updateArchivedStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "type": "integer", "format": "int32" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reviews/paitnings/{id}/reviews": {
+      "get": {
+        "tags": ["Review"],
+        "operationId": "findAllReviewsByPainting",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "format": "int32", "default": 0 }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "format": "int32", "default": 10 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseReviewResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/painting/{id}": {
+      "get": {
+        "tags": ["Painting"],
+        "operationId": "getPaintingById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PaintingResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/painting/returned": {
+      "get": {
+        "tags": ["Painting"],
+        "operationId": "findAllReturnedPaintings",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "format": "int32", "default": 0 }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "format": "int32", "default": 10 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseBorrowedPaintingResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/painting/owner": {
+      "get": {
+        "tags": ["Painting"],
+        "operationId": "findAllPaintingsByOwner",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "format": "int32", "default": 0 }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "format": "int32", "default": 10 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponsePaintingResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/painting/borrowed": {
+      "get": {
+        "tags": ["Painting"],
+        "operationId": "findAllBorrowedPaintings",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "format": "int32", "default": 0 }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "format": "int32", "default": 10 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseBorrowedPaintingResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/activate-account": {
+      "get": {
+        "tags": ["Authentication"],
+        "operationId": "confirm",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "OK" } }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ReviewRequest": {
+        "type": "object",
+        "properties": {
+          "note": {
+            "type": "number",
+            "format": "double",
+            "maximum": 5,
+            "minimum": 0
+          },
+          "review": { "type": "string" },
+          "paintingId": { "type": "integer", "format": "int32" }
+        },
+        "required": ["paintingId", "review"]
+      },
+      "PaintingRequest": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "title": { "type": "string" },
+          "artist": { "type": "string" },
+          "doi": { "type": "string" },
+          "info": { "type": "string" },
+          "shareable": { "type": "boolean" }
+        },
+        "required": ["artist", "doi", "info", "title"]
+      },
+      "RegistrationRequest": {
+        "type": "object",
+        "properties": {
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "email": { "type": "string" },
+          "password": {
+            "type": "string",
+            "maxLength": 2147483647,
+            "minLength": 8
+          }
+        },
+        "required": ["email", "firstName", "lastName", "password"]
+      },
+      "AuthenticationRequest": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string" },
+          "password": {
+            "type": "string",
+            "maxLength": 2147483647,
+            "minLength": 8
+          }
+        },
+        "required": ["email", "password"]
+      },
+      "AuthenticationResponse": {
+        "type": "object",
+        "properties": { "token": { "type": "string" } }
+      },
+      "PageResponseReviewResponse": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ReviewResponse" }
+          },
+          "number": { "type": "integer", "format": "int32" },
+          "size": { "type": "integer", "format": "int32" },
+          "totalElements": { "type": "integer", "format": "int64" },
+          "totalPages": { "type": "integer", "format": "int32" },
+          "first": { "type": "boolean" },
+          "last": { "type": "boolean" }
+        }
+      },
+      "ReviewResponse": {
+        "type": "object",
+        "properties": {
+          "note": { "type": "number", "format": "double" },
+          "review": { "type": "string" },
+          "ownReview": { "type": "boolean" }
+        }
+      },
+      "PageResponsePaintingResponse": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PaintingResponse" }
+          },
+          "number": { "type": "integer", "format": "int32" },
+          "size": { "type": "integer", "format": "int32" },
+          "totalElements": { "type": "integer", "format": "int64" },
+          "totalPages": { "type": "integer", "format": "int32" },
+          "first": { "type": "boolean" },
+          "last": { "type": "boolean" }
+        }
+      },
+      "PaintingResponse": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "title": { "type": "string" },
+          "artist": { "type": "string" },
+          "doi": { "type": "string" },
+          "info": { "type": "string" },
+          "owner": { "type": "string" },
+          "image": { "type": "string", "format": "byte" },
+          "rating": { "type": "number", "format": "double" },
+          "archived": { "type": "boolean" },
+          "shareable": { "type": "boolean" }
+        }
+      },
+      "BorrowedPaintingResponse": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "title": { "type": "string" },
+          "artist": { "type": "string" },
+          "doi": { "type": "string" },
+          "rating": { "type": "number", "format": "double" },
+          "returned": { "type": "boolean" },
+          "returnApproved": { "type": "boolean" }
+        }
+      },
+      "PageResponseBorrowedPaintingResponse": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/BorrowedPaintingResponse" }
+          },
+          "number": { "type": "integer", "format": "int32" },
+          "size": { "type": "integer", "format": "int32" },
+          "totalElements": { "type": "integer", "format": "int64" },
+          "totalPages": { "type": "integer", "format": "int32" },
+          "first": { "type": "boolean" },
+          "last": { "type": "boolean" }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "description": "JWT auth description",
+        "in": "header",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

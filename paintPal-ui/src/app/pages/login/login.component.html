@@ -1,0 +1,24 @@
+<div class="login-container">
+    <div class="bg-blue-300 p-4 shadow-2 border-round w-full lg:w-6">
+        <div class="text-center mb-5">
+            <img src="https://www.google.com/imgres?q=paintpal&imgurl=https%3A%2F%2Fyt3.googleusercontent.com%2Fytc%2FAIdro_kxGaV0KGeM6s6zbp3j8sPYPQ8Oal4K69dC3Tbg6JVuZQ%3Ds900-c-k-c0x00ffffff-no-rj&imgrefurl=https%3A%2F%2Fwww.youtube.com%2Fc%2Fpaintpal&docid=xVqDV3L2Top7cM&tbnid=2EC42tZQJHCTuM&vet=12ahUKEwjC1Ky6rI6MAxXuRmwGHW8mNocQM3oECGUQAA..i&w=900&h=900&hcb=2&ved=2ahUKEwjC1Ky6rI6MAxXuRmwGHW8mNocQM3oECGUQAA" alt="Image" height="50" class="mb-3">
+            <div class="text-900 text-3xl font-medium mb-3">Login</div>
+        </div>
+    
+        <div>
+            <label for="email1" class="block text-900 font-medium mb-2">Email</label>
+            <input id="email1" [(ngModel)]="authRequest.email" type="text" placeholder="Email address" pInputText class="w-full mb-3">
+    
+            <label for="password1" class="block text-900 font-medium mb-2">Password</label>
+            <input id="password1" [(ngModel)]="authRequest.password" type="password" placeholder="Password" pInputText class="w-full mb-3">
+    
+            <button (click)="login()" pButton pRipple label="Sign In" icon="pi pi-user" class="w-full mb-3">Sign In</button>
+            <button (click)="register()" pButton pRipple label="Sign In" icon="pi pi-user" class="w-full">Register</button>
+    
+        </div>
+
+        <div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
+            <p *ngFor="let msg of errorMsg">{{msg}}</p>
+          </div>
+    </div>
+</div>

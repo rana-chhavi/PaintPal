@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 @OpenAPIDefinition(
@@ -27,8 +28,8 @@ import org.springframework.stereotype.Service;
         ),
         servers = {
                 @Server(
-                        description = "LOCAL ENV",
-                        url = "http://localhost:8080/api/v1"
+                        description = "Local ENV",
+                        url = "http://localhost:8088/api/v1"
                 ),
                 @Server(
                         description = "PROD ENV",
@@ -50,6 +51,7 @@ import org.springframework.stereotype.Service;
         in = SecuritySchemeIn.HEADER
 )
 
+@Configuration
 public class OpenApiConfig {
 
 }

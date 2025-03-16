@@ -2,6 +2,7 @@ package com.chhrana.paintPal.history;
 
 import com.chhrana.paintPal.painting.Painting;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -15,14 +16,14 @@ public interface PaintingTransactionHistoryRepository extends JpaRepository<Pain
             FROM PaintingTransactionHistory history
             WHERE history.user.id = :userId
             """)
-    Page<PaintingTransactionHistory> findAllBorrowedPaintings(int page, Integer userId);
+    Page<PaintingTransactionHistory> findAllBorrowedPaintings(Pageable page, Integer userId);
 
     @Query("""
             SELECT history
             FROM PaintingTransactionHistory history
             WHERE history.painting.owner.id = :userId
             """)
-    Page<PaintingTransactionHistory> findAllReturnedPaintings(int page, Integer userId);
+    Page<PaintingTransactionHistory> findAllReturnedPaintings(Pageable page, Integer userId);
 
     @Query("""
             SELECT

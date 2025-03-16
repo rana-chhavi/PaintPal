@@ -43,7 +43,7 @@ public class PaintingService {
     public PageResponse<PaintingResponse> findAllPaintings(int page, int size, Authentication connectedUser) {
         User user = ((User) connectedUser.getPrincipal());
         Pageable pageable = PageRequest.of(page, size, Sort.by("createDate").descending());
-        Page<Painting> paintings = paintingRepository.findAllDisplayablePainting(page, user.getId());
+        Page<Painting> paintings = paintingRepository.findAllDisplayablePainting(pageable, user.getId());
         List<PaintingResponse> paintingResponse = paintings.stream()
                 .map(paintingMapper::toPaintingResponse).toList();
 
@@ -79,7 +79,7 @@ public class PaintingService {
     public PageResponse<BorrowedPaintingResponse> findAllBorrowedPaintings(int page, int size, Authentication connectedUser) {
         User user = ((User) connectedUser.getPrincipal());
         Pageable pageable = PageRequest.of(page,size,Sort.by("createdDate").descending());
-        Page< PaintingTransactionHistory> allBorrowedPaintings = paintingTransactionHistoryRepository.findAllBorrowedPaintings(page, user.getId());
+        Page< PaintingTransactionHistory> allBorrowedPaintings = paintingTransactionHistoryRepository.findAllBorrowedPaintings(pageable, user.getId());
         List<BorrowedPaintingResponse> paintingResponse = allBorrowedPaintings.stream()
                 .map(paintingMapper::toBorrowedPaintingResponse)
                 .toList();
@@ -98,7 +98,7 @@ public class PaintingService {
     public PageResponse<BorrowedPaintingResponse> findAllReturnedPaintings(int page, int size, Authentication connectedUser) {
         User user = ((User) connectedUser.getPrincipal());
         Pageable pageable = PageRequest.of(page,size,Sort.by("createdDate").descending());
-        Page< PaintingTransactionHistory> allReturnedPaintings = paintingTransactionHistoryRepository.findAllReturnedPaintings(page, user.getId());
+        Page< PaintingTransactionHistory> allReturnedPaintings = paintingTransactionHistoryRepository.findAllReturnedPaintings(pageable, user.getId());
         List<BorrowedPaintingResponse> paintingResponse = allReturnedPaintings.stream()
                 .map(paintingMapper::toBorrowedPaintingResponse)
                 .toList();

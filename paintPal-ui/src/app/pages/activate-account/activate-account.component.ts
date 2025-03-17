@@ -37,8 +37,8 @@ export class ActivateAccountComponent {
     this.router.navigate(['login']);
   }
 
-  onCodeCompleted() {
-    this.confirmAccount(this.value);
+  onCodeCompleted(token: string) {
+    this.confirmAccount(token);
   }
 
   // protected readonly skipUntil = skipUntil;

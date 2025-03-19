@@ -42,7 +42,7 @@ public class PaintingService {
 
     public PageResponse<PaintingResponse> findAllPaintings(int page, int size, Authentication connectedUser) {
         User user = ((User) connectedUser.getPrincipal());
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createDate").descending());
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         Page<Painting> paintings = paintingRepository.findAllDisplayablePainting(pageable, user.getId());
         List<PaintingResponse> paintingResponse = paintings.stream()
                 .map(paintingMapper::toPaintingResponse).toList();

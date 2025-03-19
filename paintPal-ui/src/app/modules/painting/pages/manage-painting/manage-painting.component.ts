@@ -41,7 +41,7 @@ export class ManagePaintingComponent {
            info: painting.info as string,
            shareable: painting.shareable
          };
-         this.selectedPicture='data:image/jpg;base64,' + painting.cover;
+         this.selectedPicture='data:image/jpg;base64,' + painting.image;
         }
       });
     }

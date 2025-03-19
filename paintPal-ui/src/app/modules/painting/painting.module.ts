@@ -7,13 +7,17 @@ import { MenuComponent } from './components/menu/menu.component';
 import { PaintingListComponent } from './pages/painting-list/painting-list.component';
 import { PaintingCardComponent } from './components/painting-card/painting-card.component';
 import { RatingComponent } from './components/rating/rating.component';
+import { MyPaintingsComponent } from './pages/my-paintings/my-paintings.component';
+import { ManagePaintingComponent } from './pages/manage-painting/manage-painting.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [MainComponent, MenuComponent, PaintingListComponent, PaintingCardComponent, RatingComponent],
+  declarations: [MainComponent, MenuComponent, PaintingListComponent, PaintingCardComponent, RatingComponent, MyPaintingsComponent, ManagePaintingComponent],
   imports: [
     CommonModule,
-    PaintingRoutingModule
+    PaintingRoutingModule,
+    FormsModule
   ]
 })
 export class PaintingModule { }

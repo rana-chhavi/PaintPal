@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +34,7 @@ public interface PaintingTransactionHistoryRepository extends JpaRepository<Pain
             AND paintingTransactionHistory.painting.id = :paintingId
             AND paintingTransactionHistory.returnApproved = false
             """)
-    boolean isAlreadyBorrowedByUser(Integer paintingId, Integer id);
+    boolean isAlreadyBorrowedByUser(Integer paintingId, @Param("userId")Integer userId);
 
     @Query("""
             SELECT transaction
@@ -43,7 +44,7 @@ public interface PaintingTransactionHistoryRepository extends JpaRepository<Pain
             AND transaction.returned = false
             AND transaction.returnApproved = false
             """)
-    Optional<PaintingTransactionHistory> findByPaintingIdAndUserId(Integer paintingId, Integer id);
+    Optional<PaintingTransactionHistory> findByPaintingIdAndUserId(Integer paintingId, Integer userId);
 
     @Query("""
             SELECT transaction
@@ -53,5 +54,5 @@ public interface PaintingTransactionHistoryRepository extends JpaRepository<Pain
             AND transaction.returned = true
             AND transaction.returnApproved = false
             """)
-    Optional<PaintingTransactionHistory> findByPaintingIdAndOwnerId(Integer paintingId, Integer id);
+    Optional<PaintingTransactionHistory> findByPaintingIdAndOwnerId(Integer paintingId, Integer userId);
 }

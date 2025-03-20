@@ -20,7 +20,8 @@ export class MenuComponent {
     })
   }
 
-  async logout() {
-    
+  logout() {
+    localStorage.removeItem('token');
+    window.location.reload();
   }
 }

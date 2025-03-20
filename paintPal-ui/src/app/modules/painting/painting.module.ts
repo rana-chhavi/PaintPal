@@ -11,10 +11,11 @@ import { MyPaintingsComponent } from './pages/my-paintings/my-paintings.componen
 import { ManagePaintingComponent } from './pages/manage-painting/manage-painting.component';
 import { FormsModule } from '@angular/forms';
 import { BorrowedPaintingListComponent } from './pages/borrowed-painting-list/borrowed-painting-list.component';
+import { ReturnPaintingsComponent } from './pages/return-paintings/return-paintings.component';
 
 
 @NgModule({
-  declarations: [MainComponent, MenuComponent, PaintingListComponent, PaintingCardComponent, RatingComponent, MyPaintingsComponent, ManagePaintingComponent, BorrowedPaintingListComponent],
+  declarations: [MainComponent, MenuComponent, PaintingListComponent, PaintingCardComponent, RatingComponent, MyPaintingsComponent, ManagePaintingComponent, BorrowedPaintingListComponent, ReturnPaintingsComponent],
   imports: [
     CommonModule,
     PaintingRoutingModule,

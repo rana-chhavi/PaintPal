@@ -4,6 +4,7 @@ import { MainComponent } from './pages/main/main.component';
 import { PaintingListComponent } from './pages/painting-list/painting-list.component';
 import { MyPaintingsComponent } from './pages/my-paintings/my-paintings.component';
 import { ManagePaintingComponent } from './pages/manage-painting/manage-painting.component';
+import { BorrowedPaintingListComponent } from './pages/borrowed-painting-list/borrowed-painting-list.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: 'manage/:paintingId',
         component: ManagePaintingComponent
+      },
+      {
+        path: 'my-borrowed-paintings',
+        component: BorrowedPaintingListComponent
       }
     ]
   }

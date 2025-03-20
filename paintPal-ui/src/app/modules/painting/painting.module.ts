@@ -10,10 +10,11 @@ import { RatingComponent } from './components/rating/rating.component';
 import { MyPaintingsComponent } from './pages/my-paintings/my-paintings.component';
 import { ManagePaintingComponent } from './pages/manage-painting/manage-painting.component';
 import { FormsModule } from '@angular/forms';
+import { BorrowedPaintingListComponent } from './pages/borrowed-painting-list/borrowed-painting-list.component';
 
 
 @NgModule({
-  declarations: [MainComponent, MenuComponent, PaintingListComponent, PaintingCardComponent, RatingComponent, MyPaintingsComponent, ManagePaintingComponent],
+  declarations: [MainComponent, MenuComponent, PaintingListComponent, PaintingCardComponent, RatingComponent, MyPaintingsComponent, ManagePaintingComponent, BorrowedPaintingListComponent],
   imports: [
     CommonModule,
     PaintingRoutingModule,

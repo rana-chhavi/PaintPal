@@ -6,6 +6,7 @@ import { MyPaintingsComponent } from './pages/my-paintings/my-paintings.componen
 import { ManagePaintingComponent } from './pages/manage-painting/manage-painting.component';
 import { BorrowedPaintingListComponent } from './pages/borrowed-painting-list/borrowed-painting-list.component';
 import { ReturnPaintingsComponent } from './pages/return-paintings/return-paintings.component';
+import { authGuard } from '../../services/guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -14,27 +15,33 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: PaintingListComponent
+        component: PaintingListComponent,
+        canActivate: [authGuard]
       },
       {
         path: 'my-paintings',
-        component: MyPaintingsComponent
+        component: MyPaintingsComponent,
+        canActivate: [authGuard]
       },
       {
         path: 'manage',
-        component: ManagePaintingComponent
+        component: ManagePaintingComponent,
+        canActivate: [authGuard]
       },
       {
         path: 'manage/:paintingId',
-        component: ManagePaintingComponent
+        component: ManagePaintingComponent,
+        canActivate: [authGuard]
       },
       {
         path: 'my-borrowed-paintings',
-        component: BorrowedPaintingListComponent
+        component: BorrowedPaintingListComponent,
+        canActivate: [authGuard]
       },
       {
         path: 'my-returned-paintings',
-        component: ReturnPaintingsComponent
+        component: ReturnPaintingsComponent,
+        canActivate: [authGuard]
       }
     ]
   }

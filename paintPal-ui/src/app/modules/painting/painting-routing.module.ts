@@ -5,6 +5,7 @@ import { PaintingListComponent } from './pages/painting-list/painting-list.compo
 import { MyPaintingsComponent } from './pages/my-paintings/my-paintings.component';
 import { ManagePaintingComponent } from './pages/manage-painting/manage-painting.component';
 import { BorrowedPaintingListComponent } from './pages/borrowed-painting-list/borrowed-painting-list.component';
+import { ReturnPaintingsComponent } from './pages/return-paintings/return-paintings.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,10 @@ const routes: Routes = [
       {
         path: 'my-borrowed-paintings',
         component: BorrowedPaintingListComponent
+      },
+      {
+        path: 'my-returned-paintings',
+        component: ReturnPaintingsComponent
       }
     ]
   }

@@ -195,7 +195,7 @@ public class PaintingService {
         }
 
         User user = ((User) connectedUser.getPrincipal());
-        if(Objects.equals(painting.getOwner().getId(), user.getId())) {
+        if(!Objects.equals(painting.getOwner().getId(), user.getId())) {
             throw new OperationNotPermittedException("You cannot approve return of your own painting");
         }
         PaintingTransactionHistory paintingTransactionHistory = paintingTransactionHistoryRepository.findByPaintingIdAndOwnerId(paintingId, user.getId())

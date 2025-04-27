@@ -25,11 +25,13 @@ PaintPal is a full-stack application that enables users to manage their painting
 - Painting Return Approval: Functionality to approve painting returns.
 
 #### Class diagram
-![image](https://github.com/user-attachments/assets/9f327538-52f5-4c79-aeb4-e18d3ccd2864)
+![image](https://github.com/user-attachments/assets/bbe3d766-f80e-4a39-b6aa-6707dfc34c90)
+
 
 
 #### Spring security diagram
-![Security diagram](screenshots/security.png)
+![image](https://github.com/user-attachments/assets/fa1dbcf6-e029-4a76-ac27-894d5804c2bf)
+
 
 
 ## Technologies Used
